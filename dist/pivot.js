@@ -442,7 +442,28 @@
       }
     };
     naturalSort = (function(_this) {
+      // own order for custom table values
+      var order = [ 'User', 'Task' , 'Daily' , 'Weekly' , 'Monthly', 'Yearly', 'Note' , 'Invoice', 'Billable' ];
       return function(as, bs) {
+        var aId = order.indexOf(as);
+        var bId = order.indexOf(bs);
+        if( aId != -1 || bId != -1 )
+        {
+          if( aId > 5 && bs.indexOf("Level") != -1 )
+            return 1;
+
+          if( bId > 5 && as.indexOf("Level") != -1 )
+            return -1;
+
+          if( aId == -1 )
+            return 1;
+          if( bId == -1 )
+            return -1;
+          if( aId > bId )
+            return 1;
+          else
+            return -1;
+        }
         var a, a1, b, b1, rd, rx, rz;
         rx = /(\d+)|(\D+)/g;
         rd = /\d/;
